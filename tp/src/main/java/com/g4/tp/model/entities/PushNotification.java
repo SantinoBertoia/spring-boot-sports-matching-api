@@ -1,8 +1,13 @@
 package com.g4.tp.model.entities;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class PushNotification extends Notification {
 
-    private String adapter; // Para patrón Adapter
+    private static final Logger logger = LoggerFactory.getLogger(PushNotification.class);
+
+    private String adapter;
 
     public PushNotification() {
         this.adapter = "AdapterPushNotification";
@@ -10,9 +15,7 @@ public class PushNotification extends Notification {
 
     @Override
     public void sendNotification(String recipient, User user, String message) {
-        // TODO: Implementar envío de push notification via Firebase
-        System.out.println("Sending push notification to: " + recipient);
-        System.out.println("Message: " + message);
+        logger.info("Simulating push notification to {}", recipient);
     }
 
     public String getAdapter() {

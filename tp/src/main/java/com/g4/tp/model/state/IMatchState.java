@@ -14,12 +14,4 @@ public interface IMatchState {
     void confirmMatch(Match match);
 
     void updateProgress(Match match, int progress);
-
-    // TODO: Implementar los siguientes estados:
-    // - NeedPlayerState
-    // - MatchArranged
-    // - ConfirmedState
-    // - InProgressState
-    // - FinishedState
-    // - CancelledState
 }

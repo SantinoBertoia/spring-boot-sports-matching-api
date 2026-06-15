@@ -1,6 +1,7 @@
 package com.g4.tp.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,8 +16,11 @@ import com.g4.tp.service.MatchService;
 @RequestMapping("/match")
 public class MatchController {
 
-    @Autowired
-    private MatchService matchService;
+    private final MatchService matchService;
+
+    public MatchController(MatchService matchService) {
+        this.matchService = matchService;
+    }
 
     @GetMapping("/hello")
     public String hello() {
@@ -24,22 +28,10 @@ public class MatchController {
     }
 
     @PostMapping("/create")
-    public MatchDTO createMatch(@RequestBody MatchDTO match) {
-        System.out.println("Creating match: " + match.getSport() +
-                " on date: " + match.getDate() +
-                " duration: " + match.getDuration() + " minutes");
-
+    public ResponseEntity<MatchDTO> createMatch(@RequestBody MatchDTO match) {
         Match partido = new Match(match.getSport(), match.getDuration(), match.getDate(), match.getTime());
+        Match savedMatch = matchService.createMatch(partido);
 
-        matchService.createMatch(partido);
-
-        return match;
+        return ResponseEntity.status(HttpStatus.CREATED).body(MatchDTO.fromEntity(savedMatch));
     }
-
-    // TODO: Agregar endpoints para:
-    // - GET /search - Buscar partidos disponibles
-    // - POST /join/{id} - Unirse a un partido
-    // - PUT /confirm/{id} - Confirmar partido
-    // - PUT /cancel/{id} - Cancelar partido
-
 }

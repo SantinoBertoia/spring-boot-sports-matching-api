@@ -1,6 +1,7 @@
 package com.g4.tp.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,8 +16,11 @@ import com.g4.tp.service.SportService;
 @RequestMapping("/sport")
 public class SportController {
 
-    @Autowired
-    private SportService sportService;
+    private final SportService sportService;
+
+    public SportController(SportService sportService) {
+        this.sportService = sportService;
+    }
 
     @GetMapping("/hello")
     public String hello() {
@@ -24,16 +28,10 @@ public class SportController {
     }
 
     @PostMapping("/create")
-    public SportDTO createSport(@RequestBody SportDTO sport) {
-        System.out.println("Creating sport: " + sport.getName() +
-                " with description: " + sport.getDescription() +
-                " and required players: " + sport.getRequiredPlayers());
-
+    public ResponseEntity<SportDTO> createSport(@RequestBody SportDTO sport) {
         Sport deporte = new Sport(sport.getName(), sport.getDescription(), sport.getRequiredPlayers());
+        Sport savedSport = sportService.createSport(deporte);
 
-        sportService.createSport(deporte);
-
-        return sport;
+        return ResponseEntity.status(HttpStatus.CREATED).body(SportDTO.fromEntity(savedSport));
     }
-
 }

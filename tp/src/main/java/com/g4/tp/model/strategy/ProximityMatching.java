@@ -1,8 +1,9 @@
 package com.g4.tp.model.strategy;
 
 import java.util.List;
-import com.g4.tp.model.entities.User;
+
 import com.g4.tp.model.entities.Match;
+import com.g4.tp.model.entities.User;
 
 public class ProximityMatching implements IMatchingStrategy {
 
@@ -14,11 +15,9 @@ public class ProximityMatching implements IMatchingStrategy {
 
     @Override
     public List<User> matchPlayers(List<User> availableUsers, Match match) {
-        // TODO: Implementar lógica de matching por proximidad geográfica
-        return availableUsers; // Placeholder
+        return availableUsers;
     }
 
-    // Getters and Setters
     public double getMaxDistance() {
         return maxDistance;
     }

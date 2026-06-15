@@ -7,16 +7,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "notifiers")
 public class Notifier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     private String message;
     private String recipient;
+
+    @Transient
+    private Notification strategy;
 
     public Notifier() {
     }
@@ -27,19 +30,21 @@ public class Notifier {
     }
 
     public void sendNotification(User user, String message) {
-        // TODO: Implementar lógica de envío de notificaciones
-        // TODO: Usar patrón Strategy para diferentes tipos de notificación
+        if (strategy != null) {
+            strategy.sendNotification(recipient, user, message);
+        }
     }
 
     public void setStrategy(Notification strategy) {
-        // TODO: Implementar patrón Strategy para notificaciones
+        this.strategy = strategy;
     }
 
     public void updateObservable(Observable observable) {
-        // TODO: Implementar patrón Observer
+        if (observable != null) {
+            this.message = "Observable updated: " + observable.getClass().getSimpleName();
+        }
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

@@ -1,8 +1,13 @@
 package com.g4.tp.model.entities;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class EmailNotification extends Notification {
 
-    private String adapter; // Para patrón Adapter
+    private static final Logger logger = LoggerFactory.getLogger(EmailNotification.class);
+
+    private String adapter;
 
     public EmailNotification() {
         this.adapter = "AdapterEmailNotification";
@@ -10,9 +15,7 @@ public class EmailNotification extends Notification {
 
     @Override
     public void sendNotification(String recipient, User user, String message) {
-        // TODO: Implementar envío de email via JavaMail
-        System.out.println("Sending email to: " + recipient);
-        System.out.println("Message: " + message);
+        logger.info("Simulating email notification to {}", recipient);
     }
 
     public String getAdapter() {

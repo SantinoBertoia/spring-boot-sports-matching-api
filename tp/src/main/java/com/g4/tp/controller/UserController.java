@@ -1,6 +1,7 @@
 package com.g4.tp.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,8 +16,11 @@ import com.g4.tp.service.UserService;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/hello")
     public String hello() {
@@ -24,16 +28,10 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public UserDTO createUser(@RequestBody UserDTO user) {
-        System.out.println("Creating user: " + user.getName() +
-                " with email: " + user.getEmail() +
-                " and password: " + user.getPassword());
-
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO user) {
         User usuario = new User(user.getName(), user.getEmail(), user.getPassword());
+        User savedUser = userService.createUser(usuario);
 
-        userService.createUser(usuario);
-
-        return user;
+        return ResponseEntity.status(HttpStatus.CREATED).body(UserDTO.fromEntity(savedUser));
     }
-
 }

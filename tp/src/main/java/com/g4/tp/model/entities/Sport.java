@@ -17,6 +17,9 @@ public class Sport {
     private String description;
     private int requiredPlayers;
 
+    public Sport() {
+    }
+
     public Sport(String name, String description, int requiredPlayers) {
 
         this.name = name;

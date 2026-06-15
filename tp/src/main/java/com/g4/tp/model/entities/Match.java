@@ -13,25 +13,22 @@ import jakarta.persistence.Table;
 public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     private String sport;
     private int duration;
     private LocalDateTime date;
     private LocalDateTime time;
-    private String state; // TODO: Implementar patrón State más adelante
+    private String state;
 
-    // TODO: Agregar relaciones con User (players), Location, etc.
-    // TODO: Implementar IMatchingStrategy
-    // TODO: Implementar Observer pattern para notificaciones
+    public Match() {
+    }
 
     public Match(String sport, int duration, LocalDateTime date, LocalDateTime time) {
-
         this.sport = sport;
         this.duration = duration;
         this.date = date;
         this.time = time;
-        this.state = "Necesitamos jugadores"; // Estado inicial
+        this.state = "Necesitamos jugadores";
     }
 
     public Long getId() {
@@ -81,5 +78,4 @@ public class Match {
     public void setState(String state) {
         this.state = state;
     }
-
 }

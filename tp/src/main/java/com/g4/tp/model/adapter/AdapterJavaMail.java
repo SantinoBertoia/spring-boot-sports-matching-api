@@ -1,17 +1,15 @@
 package com.g4.tp.model.adapter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.g4.tp.model.entities.User;
 
 public class AdapterJavaMail {
 
-    public void enviarEmail(String recipient, User user, String message) {
-        // TODO: Implementar integración real con JavaMail
-        // Esta clase simula la librería externa JavaMail
-        System.out.println("JavaMail Library: Sending email...");
-        System.out.println("Recipient: " + recipient);
-        System.out.println("From User: " + user.getEmail());
-        System.out.println("Content: " + message);
-        System.out.println("Email sent successfully!");
-    }
+    private static final Logger logger = LoggerFactory.getLogger(AdapterJavaMail.class);
 
+    public void enviarEmail(String recipient, User user, String message) {
+        logger.info("Simulating JavaMail email notification to {}", recipient);
+    }
 }

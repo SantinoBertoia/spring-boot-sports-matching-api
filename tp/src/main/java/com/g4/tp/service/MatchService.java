@@ -1,6 +1,7 @@
 package com.g4.tp.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.g4.tp.model.entities.Match;
@@ -8,23 +9,16 @@ import com.g4.tp.repository.IMatchRepository;
 
 @Service
 public class MatchService {
-    // Business logic related to Match
-    @Autowired
-    private IMatchRepository matchRepository;
+    private static final Logger logger = LoggerFactory.getLogger(MatchService.class);
 
-    public Match createMatch(Match match) {
-        System.out.println("Creating match: " + match.getSport() +
-                " on date: " + match.getDate() +
-                " duration: " + match.getDuration() + " minutes");
-        // Here you can add any business logic before saving the match
-        // TODO: Implementar lógica de matching strategy
-        // TODO: Implementar notificaciones con Observer pattern
-        return matchRepository.save(match);
+    private final IMatchRepository matchRepository;
+
+    public MatchService(IMatchRepository matchRepository) {
+        this.matchRepository = matchRepository;
     }
 
-    // TODO: Agregar métodos para:
-    // - Unir jugadores al partido
-    // - Cambiar estados del partido
-    // - Buscar partidos disponibles
-    // - Implementar estrategias de matching
+    public Match createMatch(Match match) {
+        logger.info("Creating match for sport {} on {}", match.getSport(), match.getDate());
+        return matchRepository.save(match);
+    }
 }
