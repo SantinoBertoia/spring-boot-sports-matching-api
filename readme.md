@@ -147,16 +147,3 @@ An example configuration file is available at `tp/src/main/resources/application
 ## Notes on Security
 
 This is an academic backend prototype. Passwords are no longer printed to the console or returned by the user creation endpoint, but password hashing and authentication are not implemented yet.
-
-## Future Improvements
-
-- Add authentication and password hashing with Spring Security.
-- Add validation annotations and consistent error responses.
-- Replace the simple `Match.sport` string with proper relationships between matches, sports, users, and locations.
-- Implement endpoints to search available matches, join a match, confirm a match, cancel a match, and update match progress.
-- Connect the State pattern classes to persisted match lifecycle operations.
-- Implement real matching logic for skill level, proximity, and match history.
-- Implement Observer-based notifications when matches are created or change state.
-- Integrate real email and push notification providers such as JavaMail and Firebase.
-- Add API documentation with OpenAPI/Swagger.
-- Add Docker Compose for PostgreSQL local development.
